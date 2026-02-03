@@ -1,0 +1,5 @@
+2026-02-03 15:12:16,960 | INFO     | aiogram.dispatcher   | Start polling
+2026-02-03 15:12:17,233 | INFO     | aiogram.dispatcher   | Run polling for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-03 15:12:26,263 | INFO     | aiogram.event        | Update id=381923299 is handled. Duration 312 ms by bot id=6827677602
+2026-02-03 15:13:05,889 | INFO     | aiogram.dispatcher   | Polling stopped for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-03 15:13:05,889 | INFO     | aiogram.dispatcher   | Polling stopped
