@@ -4,6 +4,7 @@ import os
 import sys
 
 from aiogram import Dispatcher, Bot
+from aiogram.types import BotCommand
 from commands import register_user_commands
 
 async def main() -> None:
