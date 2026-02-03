@@ -6,6 +6,42 @@ from aiogram.utils.keyboard import (
 )
 
 
+async def newsletter(message: types.Message) -> None:
+    type_content = InlineKeyboardBuilder()
+
+    user_subs = {
+        "beats": False,
+        "music_streams": False,
+        "music_only": False,
+        "games": False,
+        "all": False
+    }
+
+    contents = [
+                    ("Биты", "sub_beats", "beats"),
+                    ("Трансляции по музыке", "sub_music_streams", "music_streams"),
+                    ("Только музыкальный контент", "sub_only_music", "music_only"),
+                    ("Игры", "sub_games", "games"),
+                    ("Весь контент", "sub_all", "all"),
+                ]
+    for text, callback_data, sub_key in contents:
+        status = "✅" if user_subs[sub_key] else "❎"
+        button_text = f"{status} {text}"
+
+        type_content.button(text=button_text, callback_data=callback_data)
+
+    type_content.adjust(1)
+
+    await message.answer(
+        "📢 <b>Управление подписками</b>\n\n"
+        "✅ — Текущая подписка\n"
+        "❎ — Можно подписаться\n\n"
+        "<i>Нажми на кнопку чтобы переключить</i>",
+        reply_markup=type_content.as_markup(),
+        parse_mode="HTML"
+    )
+
+
 async def about_me(message: types.Message) -> None:
     aboutme_board = InlineKeyboardBuilder()
 
@@ -28,7 +64,20 @@ async def about_me(message: types.Message) -> None:
 
 
 async def faq(message: types.Message) -> None:
-    pass
+    faq_text = (
+        "<b>Зачем нужен этот бот?</b>\n"
+        "<i>Чтобы ты не пропускал новый контент! "
+        "Бот присылает уведомления о новых битах, стримах и конкурсах.</i>\n\n"
+
+        "<b>Бот будет спамить?</b>\n"
+        "<i>Нет! Ты сам выбираешь на что подписываться. Получишь только то, что выбрал.</i>\n\n"
+
+        "<b>Как подписаться на рассылку?</b>\n"
+        "<i>Зайди в</i> 📢 РАССЫЛКА → <i>выбери нужную категорию</i> → <i>готово!</i>"
+    )
+
+    await message.answer(faq_text, parse_mode="HTML")
+
 
 async def start_command(message: types.Message) -> None:
     menu_builder = ReplyKeyboardBuilder()
