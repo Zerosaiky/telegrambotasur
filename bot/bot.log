@@ -314,3 +314,101 @@ AttributeError: module 'bot.middlewares.db' has no attribute 'get_subscription'
 2026-02-04 17:06:38,970 | INFO     | aiogram.dispatcher   | Polling stopped
 2026-02-04 17:06:38,970 | INFO     | aiogram.dispatcher   | Polling stopped for bot @asurbeats_bot id=6827677602 - 'asurbeats'
 2026-02-04 17:06:39,223 | INFO     | __main__             | Bot stopped
+2026-02-04 18:12:11,972 | INFO     | __main__             | Starting bot...
+2026-02-04 18:12:11,983 | INFO     | aiogram.dispatcher   | Start polling
+2026-02-04 18:12:12,616 | INFO     | aiogram.dispatcher   | Run polling for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-04 18:12:21,371 | INFO     | aiogram.event        | Update id=381923446 is handled. Duration 375 ms by bot id=6827677602
+2026-02-04 18:12:23,504 | INFO     | aiogram.event        | Update id=381923447 is handled. Duration 140 ms by bot id=6827677602
+2026-02-04 18:12:24,537 | INFO     | aiogram.event        | Update id=381923448 is handled. Duration 109 ms by bot id=6827677602
+2026-02-04 18:12:27,510 | INFO     | aiogram.event        | Update id=381923449 is handled. Duration 171 ms by bot id=6827677602
+2026-02-04 18:12:29,544 | INFO     | aiogram.event        | Update id=381923450 is handled. Duration 327 ms by bot id=6827677602
+2026-02-04 18:12:35,063 | INFO     | aiogram.event        | Update id=381923451 is not handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:12:42,230 | INFO     | aiogram.event        | Update id=381923452 is handled. Duration 109 ms by bot id=6827677602
+2026-02-04 18:12:53,733 | INFO     | aiogram.event        | Update id=381923453 is handled. Duration 125 ms by bot id=6827677602
+2026-02-04 18:13:02,170 | INFO     | aiogram.event        | Update id=381923454 is not handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:13:02,170 | ERROR    | aiogram.event        | Cause exception while process update id=381923454 by bot id=6827677602
+TypeError: 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\bot\middlewares\db.py", line 18, in __call__
+    return await handler(event, data)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\.venv\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\bot\handlers\admin.py", line 37, in send_broadcast
+    subscribers = db.get_subscribers_by_category(category)
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\bot\database.py", line 70, in get_subscribers_by_category
+    return [row[0] for row in cursor.fetchone()]
+  File "C:\Users\Asur\PycharmProjects\asurbeats_subs\bot\database.py", line 70, in <listcomp>
+    return [row[0] for row in cursor.fetchone()]
+TypeError: 'int' object is not subscriptable
+2026-02-04 18:14:50,092 | INFO     | aiogram.dispatcher   | Polling stopped
+2026-02-04 18:14:50,092 | INFO     | aiogram.dispatcher   | Polling stopped for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-04 18:14:50,348 | INFO     | __main__             | Bot stopped
+2026-02-04 18:14:53,261 | INFO     | __main__             | Starting bot...
+2026-02-04 18:14:53,272 | INFO     | aiogram.dispatcher   | Start polling
+2026-02-04 18:14:53,877 | INFO     | aiogram.dispatcher   | Run polling for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-04 18:14:59,116 | INFO     | aiogram.event        | Update id=381923455 is not handled. Duration 15 ms by bot id=6827677602
+2026-02-04 18:15:08,245 | INFO     | aiogram.event        | Update id=381923456 is handled. Duration 5422 ms by bot id=6827677602
+2026-02-04 18:15:11,372 | INFO     | aiogram.event        | Update id=381923457 is handled. Duration 125 ms by bot id=6827677602
+2026-02-04 18:15:14,566 | INFO     | aiogram.event        | Update id=381923458 is handled. Duration 265 ms by bot id=6827677602
+2026-02-04 18:15:18,875 | INFO     | aiogram.event        | Update id=381923459 is handled. Duration 125 ms by bot id=6827677602
+2026-02-04 18:15:24,335 | INFO     | aiogram.event        | Update id=381923460 is handled. Duration 125 ms by bot id=6827677602
+2026-02-04 18:15:27,073 | INFO     | aiogram.event        | Update id=381923461 is handled. Duration 155 ms by bot id=6827677602
+2026-02-04 18:17:10,263 | INFO     | aiogram.event        | Update id=381923462 is handled. Duration 562 ms by bot id=6827677602
+2026-02-04 18:17:12,365 | INFO     | aiogram.event        | Update id=381923463 is handled. Duration 125 ms by bot id=6827677602
+2026-02-04 18:17:15,272 | INFO     | aiogram.event        | Update id=381923464 is handled. Duration 186 ms by bot id=6827677602
+2026-02-04 18:17:16,304 | INFO     | aiogram.event        | Update id=381923465 is handled. Duration 109 ms by bot id=6827677602
+2026-02-04 18:17:19,471 | INFO     | aiogram.event        | Update id=381923466 is handled. Duration 172 ms by bot id=6827677602
+2026-02-04 18:17:22,147 | INFO     | aiogram.event        | Update id=381923467 is handled. Duration 140 ms by bot id=6827677602
+2026-02-04 18:17:25,528 | INFO     | aiogram.event        | Update id=381923468 is handled. Duration 170 ms by bot id=6827677602
+2026-02-04 18:17:51,022 | INFO     | aiogram.event        | Update id=381923469 is handled. Duration 452 ms by bot id=6827677602
+2026-02-04 18:17:59,103 | INFO     | aiogram.event        | Update id=381923470 is handled. Duration 204 ms by bot id=6827677602
+2026-02-04 18:18:00,252 | INFO     | aiogram.event        | Update id=381923471 is handled. Duration 109 ms by bot id=6827677602
+2026-02-04 18:18:02,274 | INFO     | aiogram.event        | Update id=381923472 is handled. Duration 265 ms by bot id=6827677602
+2026-02-04 18:18:05,552 | INFO     | aiogram.event        | Update id=381923473 is handled. Duration 218 ms by bot id=6827677602
+2026-02-04 18:18:17,123 | INFO     | aiogram.event        | Update id=381923474 is handled. Duration 515 ms by bot id=6827677602
+2026-02-04 18:18:24,728 | INFO     | aiogram.event        | Update id=381923475 is not handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:18:45,900 | INFO     | aiogram.event        | Update id=381923476 is handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:18:50,201 | INFO     | aiogram.event        | Update id=381923477 is handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:18:54,306 | INFO     | aiogram.event        | Update id=381923478 is not handled. Duration 0 ms by bot id=6827677602
+2026-02-04 18:19:14,085 | INFO     | aiogram.event        | Update id=381923479 is handled. Duration 438 ms by bot id=6827677602
+2026-02-04 18:19:41,677 | INFO     | aiogram.event        | Update id=381923480 is handled. Duration 484 ms by bot id=6827677602
+2026-02-04 18:19:43,456 | INFO     | aiogram.event        | Update id=381923481 is handled. Duration 108 ms by bot id=6827677602
+2026-02-04 18:19:46,316 | INFO     | aiogram.event        | Update id=381923482 is handled. Duration 812 ms by bot id=6827677602
+2026-02-04 18:20:09,971 | INFO     | aiogram.event        | Update id=381923483 is handled. Duration 656 ms by bot id=6827677602
+2026-02-04 18:20:14,947 | INFO     | aiogram.event        | Update id=381923484 is handled. Duration 172 ms by bot id=6827677602
+2026-02-04 18:20:16,072 | ERROR    | root                 | Ошибка отправки 1234204435: Telegram server says - Forbidden: bot was blocked by the user
+2026-02-04 18:20:16,320 | INFO     | aiogram.event        | Update id=381923485 is handled. Duration 515 ms by bot id=6827677602
+2026-02-04 18:20:24,111 | INFO     | aiogram.event        | Update id=381923486 is handled. Duration 140 ms by bot id=6827677602
+2026-02-04 18:26:54,076 | INFO     | aiogram.dispatcher   | Polling stopped
+2026-02-04 18:26:54,076 | INFO     | aiogram.dispatcher   | Polling stopped for bot @asurbeats_bot id=6827677602 - 'asurbeats'
+2026-02-04 18:26:54,331 | INFO     | __main__             | Bot stopped

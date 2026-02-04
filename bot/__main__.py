@@ -3,19 +3,32 @@ import logging
 import os
 import sys
 
-from aiogram import Dispatcher, Bot
-from commands import register_user_commands
+from aiogram import Dispatcher, Bot, Router
+from aiogram.fsm.storage.memory import MemoryStorage
+
 from bot.database import Database
 from bot.middlewares.db import DatabaseMiddleware
 
+from handlers import register_admin_commands
+from commands import register_user_commands
+
+
 async def main() -> None:
     db = Database()
-    dp = Dispatcher()
     bot = Bot(token=os.getenv('token'))
+    dp = Dispatcher(storage=MemoryStorage())
+
     dp.message.middleware(DatabaseMiddleware(db))
     dp.callback_query.middleware(DatabaseMiddleware(db))
 
-    register_user_commands(dp)
+    user_router = Router(name="user")
+    register_user_commands(user_router)
+    dp.include_router(user_router)
+
+    admin_router = Router(name="admin")
+    register_admin_commands(admin_router)
+    dp.include_router(admin_router)
+
     await dp.start_polling(bot, drop_pending_updates=True)
 
 if __name__ == '__main__':

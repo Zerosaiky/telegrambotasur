@@ -52,3 +52,19 @@ class Database:
             )
             row = cursor.fetchone()
             return row[0] if row else None
+
+    def is_admin(self, user_id: int) -> bool:
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.execute(
+                "SELECT 1 FROM admins WHERE user_id = ?",
+                (user_id,)
+            )
+            return cursor.fetchone()
+
+    def get_subscribers_by_category(self, category: str) -> list:
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.execute(
+                "SELECT user_id FROM subscriptions WHERE category = ?",
+                (category,)
+            )
+            return [row[0] for row in cursor.fetchall()]

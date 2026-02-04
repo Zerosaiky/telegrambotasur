@@ -16,3 +16,4 @@ def register_user_commands(router: Router) -> None:
 
     router.callback_query.register(show_subscription_success, F.data.startswith("sub_"))
     router.callback_query.register(back_to_list, F.data == "back_to_subs")
+
