@@ -1,41 +1,50 @@
 from aiogram import types
+from aiogram.types import InlineKeyboardMarkup
 from aiogram.utils.keyboard import (
-    ReplyKeyboardBuilder, ReplyKeyboardMarkup,
-    InlineKeyboardBuilder, InlineKeyboardMarkup,
-    InlineKeyboardButton, KeyboardButton, KeyboardButtonPollType
+    ReplyKeyboardBuilder, InlineKeyboardBuilder
 )
 
 
-async def newsletter(message: types.Message) -> None:
+async def handle_subscription(call: types.CallbackQuery, db):
+    user_id = call.from_user.id
+    category = call.data[4:]
+    new_status = db.toggle_subscription(user_id, category)
+    if new_status:
+        await call.answer(f"✅ Подписан на: {new_status}")
+    else:
+        await call.answer(f"❌ Отписан от: {category}")
+
+
+async def newsletter(message: types.Message, db) -> None:
+    user_id = message.from_user.id
+    current = db.get_subscription(user_id)
+
     type_content = InlineKeyboardBuilder()
 
-    user_subs = {
-        "beats": False,
-        "music_streams": False,
-        "music_only": False,
-        "games": False,
-        "all": False
-    }
-
     contents = [
-                    ("Биты", "sub_beats", "beats"),
-                    ("Трансляции по музыке", "sub_music_streams", "music_streams"),
-                    ("Только музыкальный контент", "sub_only_music", "music_only"),
-                    ("Игры", "sub_games", "games"),
-                    ("Весь контент", "sub_all", "all"),
-                ]
+        ("Биты", "sub_beats", "beats"),
+        ("Трансляции по музыке", "sub_music_streams", "music_streams"),
+        ("Только музыкальный контент", "sub_music_only", "music_only"),
+        ("Игры", "sub_games", "games"),
+        ("Весь контент", "sub_all", "all"),
+    ]
+
     for text, callback_data, sub_key in contents:
-        status = "✅" if user_subs[sub_key] else "❎"
+        is_active = (current == sub_key)
+        status = "✅" if is_active else "❌"
         button_text = f"{status} {text}"
 
         type_content.button(text=button_text, callback_data=callback_data)
 
     type_content.adjust(1)
 
+    status_text = f"Текущая подписка: <b>{current}</b>" if current else "Нет активной подписки"
+
     await message.answer(
         "📢 <b>Управление подписками</b>\n\n"
+        f"{status_text}\n\n"
         "✅ — Текущая подписка\n"
-        "❎ — Можно подписаться\n\n"
+        "❌ — Можно подписаться\n\n"
         "<i>Нажми на кнопку чтобы переключить</i>",
         reply_markup=type_content.as_markup(),
         parse_mode="HTML"
