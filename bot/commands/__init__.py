@@ -4,7 +4,8 @@ from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram import F
 
-from bot.commands.start import start_command, about_me, faq, newsletter, handle_subscription
+from bot.commands.start import (start_command, about_me, faq, newsletter,
+                                show_subscription_success, back_to_list)
 
 
 def register_user_commands(router: Router) -> None:
@@ -13,4 +14,5 @@ def register_user_commands(router: Router) -> None:
     router.message.register(faq, F.text == '👤 FAQ')
     router.message.register(newsletter, F.text == '📢 РАССЫЛКА')
 
-    router.callback_query.register(handle_subscription, F.data.startswith("sub_"))
+    router.callback_query.register(show_subscription_success, F.data.startswith("sub_"))
+    router.callback_query.register(back_to_list, F.data == "back_to_subs")
