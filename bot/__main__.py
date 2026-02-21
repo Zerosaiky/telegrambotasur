@@ -9,8 +9,8 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from bot.database import Database
 from bot.middlewares.db import DatabaseMiddleware
 
-from handlers import register_admin_commands
-from commands import register_user_commands
+from bot.handlers import register_admin_commands
+from bot.commands import register_user_commands
 
 
 async def main() -> None:
