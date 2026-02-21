@@ -6,7 +6,6 @@ from typing import Union, Tuple
 from aiogram.types import InlineKeyboardMarkup
 
 
-# можно просто оставить def get_subscription_list_keyboard(current=None), ничего не поменяется
 def get_subscription_list_keyboard(current: Union[str, None] = None) -> Tuple[str, InlineKeyboardMarkup]:
 
     builder = InlineKeyboardBuilder()

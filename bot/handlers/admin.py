@@ -6,6 +6,16 @@ from aiogram.fsm.state import State, StatesGroup
 from bot.database import Database
 
 
+MUSIC_CATEGORIES = {"beats", "music_streams", "music_only"}
+ADDITIONAL_CATEGORIES = {
+    "beats":        {"music_only", "all"},
+    "music_streams": {"music_only", "all"},
+    "music_only":   {"all"},
+    "games":        {"all"},
+    "all":          set(),
+}
+
+
 class BroadcastForm(StatesGroup):
     category = State()
     message = State()
@@ -34,14 +44,23 @@ async def get_category(message: types.Message, state: FSMContext):
 async def send_broadcast(message: types.Message, state: FSMContext, bot: Bot, db: Database):
     data = await state.get_data()
     category = data['category']
-    subscribers = db.get_subscribers_by_category(category)
-    if not subscribers:
-        await message.answer("Нет подписчиков в этой категории!")
+
+    main_subs = db.get_subscribers_by_category(category)
+
+    extra_categories = ADDITIONAL_CATEGORIES.get(category, set())
+    extra_subs = set()
+    for cat in extra_categories:
+        extra_subs.update(db.get_subscribers_by_category(cat))
+
+    all_recipients = set(main_subs) | extra_subs
+
+    if not all_recipients:
+        await message.answer("Нет получателей для этой рассылки")
         await state.clear()
         return
 
     sent_count = 0
-    for user_id in subscribers:
+    for user_id in all_recipients:
         try:
             await bot.copy_message(
                 chat_id=user_id,
@@ -51,5 +70,6 @@ async def send_broadcast(message: types.Message, state: FSMContext, bot: Bot, db
             sent_count += 1
         except Exception as e:
             logging.error(f"Ошибка отправки {user_id}: {e}")
+
     await message.answer(f"Рассылка отправлена {sent_count} пользователям!")
     await state.clear()
