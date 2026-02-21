@@ -41,7 +41,7 @@ async def main() -> None:
     else:
         logger.warning("ADMIN_IDS не указан в .env — админы не добавлены автоматически")
 
-    bot = Bot(token=os.getenv('token'))
+    bot = Bot(token=os.getenv('BOT_TOKEN'))
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.message.middleware(DatabaseMiddleware(db))
