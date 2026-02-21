@@ -68,3 +68,11 @@ class Database:
                 (category,)
             )
             return [row[0] for row in cursor.fetchall()]
+
+    def add_admin(self, user_id: int):
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute(
+                "INSERT OR IGNORE INTO admins (user_id) VALUES (?)",
+                (user_id,)
+            )
+            conn.commit()

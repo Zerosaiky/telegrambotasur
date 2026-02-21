@@ -15,6 +15,32 @@ from commands import register_user_commands
 
 async def main() -> None:
     db = Database()
+
+    admin_ids_str = os.getenv("ADMIN_IDS", "")
+    if admin_ids_str:
+        try:
+            admin_ids = [
+                int(uid.strip())
+                for uid in admin_ids_str.split(",")
+                if uid.strip().isdigit()
+            ]
+
+            added = []
+            for uid in admin_ids:
+                if not db.is_admin(uid):
+                    db.add_admin(uid)
+                    added.append(uid)
+
+            if added:
+                logger.info(f"Автоматически добавлены новые админы: {added}")
+            else:
+                logger.info("Все указанные админы уже есть в базе")
+
+        except ValueError as e:
+            logger.error(f"Ошибка в ADMIN_IDS: некорректные ID → {e}")
+    else:
+        logger.warning("ADMIN_IDS не указан в .env — админы не добавлены автоматически")
+
     bot = Bot(token=os.getenv('token'))
     dp = Dispatcher(storage=MemoryStorage())
 
